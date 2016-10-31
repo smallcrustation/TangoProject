@@ -1,20 +1,56 @@
-﻿<!DOCTYPE html>
+﻿{% extends 'netchan/base.html' %}
 {% load staticfiles %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>netchan</title>
-</head>
+{% block title_block %}
+    Home
+{% endblock %}
+
+{% block body_block %}
 <body>
-    <h1>netchan says...</h1>
-    <div>
-        Fuck off loser. <br />
-        <strong>{{ boldmessage }}</strong><br />
+    <div class="jumbotron">
+        <h1 class="display-3">netchan says...</h1> 
+        {% if user.is_authenticated %}
+            <h2>Welcome {{ user.username }}.</h2>
+        {% else %}   
+            <h3>Fuck off loser.</h3> <br />
+        {% endif %}
     </div>
-    <div>
-        <a href="/netchan/about/">About</a><br />
-        <img src="{% static 'images/yatsuba-404.jpg' %}" alt="Yatsuba 404 pic" />
+
+    <div class="row mark">
+        <div class="col-lg-6">
+        {% if categories %}
+        <h4>Top 5 Categories</h4>
+        <ul class="list-group">
+            {% for category in categories %}
+                <li class="">
+                    <a href="{% url 'show_category' category.slug %}" class="list-group-item list-group-item-action">
+                        {{ category.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>There are no categories present derrrrr</strong>
+        {% endif %}
+        </div>
+
+        <div class="col-lg-6">   
+            {% if pages %}
+            <h4>Top 5 Pages</h4>
+            <ul class="list-group">
+                {% for page in pages %}
+                <li class="">
+                    <a href="{{ page.url }}" class="list-group-item list-group-item-action">
+                    {{ page.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>There are no categories present.</strong>
+            {% endif %}
+        </div>
     </div>
+    <img src="{% static 'images/yatsuba-404.jpg' %}" alt="Yatsuba 404 pic" />
 </body>
-</html>
+{% endblock %}

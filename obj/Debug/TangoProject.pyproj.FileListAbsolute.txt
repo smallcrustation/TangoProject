@@ -1,0 +1,15 @@
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\bin\Microsoft.PythonTools.WebRole.dll
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\attach_server.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\visualstudio_py_debugger.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\visualstudio_py_repl.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\visualstudio_py_util.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\__init__.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\__main__.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\bin\AzureSetup.cfg
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\bin\Microsoft.PythonTools.AzureSetup.exe
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\bin\Microsoft.PythonTools.AzureSetup.exe.config
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\bin\wfastcgi.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\deployment-updated-pyvenv.cfg
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\ptvs_virtualenv_proxy.py
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\web.config
+D:\Programming\VisualStudioProjects\TangoProject\TangoProject\obj\Debug\web.debug.config

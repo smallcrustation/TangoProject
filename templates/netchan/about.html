@@ -1,23 +1,24 @@
-﻿<!DOCTYPE html>
+﻿{% extends 'netchan/base.html' %}
 {% load staticfiles %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <h1>ABOUT </h1>
-    </div>
-    <div>
-        <img src="{% static 'images/synth-pop.jpg' %}" />
-    </div>
-    <div>
-        <p>netchan has been put together by Lars Olrich</p>
-        <p>Media File Upload</p>
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="fluffy cat png" />
-    </div>
-    <br /> <a href='/netchan'>Index</a>
-</body>
-</html>
+{% block title_block %}
+    Abouty
+{% endblock %}
+
+{% block body_block %}
+    <body>
+        <div>
+            <h1>ABOUT </h1>
+        </div>
+        
+        <div>
+            <p>netchan has been put together by Lars Olrich</p>
+            <p>You have visited this site <strong>{{ visits }}</strong> times</p>
+            <img src="{{ MEDIA_URL }}cat.jpg" alt="fluffy cat png" />
+        </div>
+        <div>
+            <img src="{% static 'images/synth-pop.jpg' %}" />
+        </div>
+    </body>
+    </html>
+{% endblock %}

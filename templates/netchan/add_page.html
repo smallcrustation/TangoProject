@@ -1,0 +1,27 @@
+﻿{% extends 'netchan/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    A+dd page
+{% endblock %}
+
+{% block body_block %}
+    <body>
+        <div class="">
+            <h2 class="display-3">Add a Page to {{category.name}}</h2>
+        </div>
+        
+	    {% if category %}
+	    <form role="form" id="page_form" method="post" action="/netchan/category/{{ category.slug }}/add_page/">
+	        {% csrf_token %}
+            {{ form }} 
+            <br />
+	        <button class="btn btn-primary" type="submit" value="Submit">Create Category</button> 
+	    </form>
+			
+	    {% else %}
+		    <p>The specified category does not exist!</p>
+	    {% endif%}
+			
+    </body>
+{% endblock %}

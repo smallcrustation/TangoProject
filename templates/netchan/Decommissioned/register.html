@@ -1,0 +1,27 @@
+﻿{% extends 'netchan/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+    <h1>Register Page</h1>
+    {% if registered %}
+        netchan says: <strong>Registration Complete</strong>
+        <a href="{% url 'index' %}">Home</a>
+    {% else %}
+        netchan says: <strong>Register here</strong>... still fuck off though <br />
+        
+        {#create form area, enctype but be "multipart/form-data" for uploading files#}
+        <form id="user_form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {#Display each form#}
+            {{ user_form.as_p }} {#.as_p displays form in <p> and makes ea. element appear on a new line#}
+            {{ profile_form.as_p }}
+
+            <input type="submit" name="submit" value="Register" /> {#create submit button#}
+        </form>
+    {% endif %}          
+{% endblock %}

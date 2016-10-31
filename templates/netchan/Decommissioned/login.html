@@ -1,0 +1,20 @@
+﻿{% extends 'netchan/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block body_block %}
+<h1>Login to netchan</h1>
+
+<form id="login_form" method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    Username: <input type="text" name="username" value="" size="50" /><br />
+    {{ field_errors }}
+    <br />
+    Password: <input type="text" name="password" value="" size="50" /> <br />
+   
+    <input type="submit" value="submit" />
+</form>
+{% endblock %}
