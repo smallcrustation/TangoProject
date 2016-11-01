@@ -1,5 +1,6 @@
 ﻿{% extends 'netchan/base.html' %}
 {% load staticfiles %}
+{% load bootstrap_toolkit %}
 
 {% block title_block %}
     A+dd page
@@ -14,8 +15,7 @@
 	    {% if category %}
 	    <form role="form" id="page_form" method="post" action="/netchan/category/{{ category.slug }}/add_page/">
 	        {% csrf_token %}
-            {{ form }} 
-            <br />
+            {{ form|as_bootstrap }} 
 	        <button class="btn btn-primary" type="submit" value="Submit">Create Category</button> 
 	    </form>
 			

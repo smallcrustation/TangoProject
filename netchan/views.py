@@ -87,7 +87,6 @@ def add_category(request):
     form = CategoryForm
 
     if request.method == 'POST':
-        print('made to post')
         form = CategoryForm(request.POST)
         # check if the form is valid
         if form.is_valid():
@@ -113,7 +112,6 @@ def add_page(request, category_name_slug):
 
     if request.method == 'POST':
         form = PageForm(request.POST)
-        print('POST')
         
         if form.is_valid():
             if category:
@@ -126,7 +124,7 @@ def add_page(request, category_name_slug):
 
             else:
                 print(form.errors)
-    print('end of add_page')
+
     context_dict = {'form': form, 'category': category}
     return render(request, 'netchan/add_page.html', context_dict)
 

@@ -15,19 +15,7 @@
     <div>
         <form id="category_form" method="post" action="{% url 'add_category' %}"> {# action= sends to the URL then view POST#}
             {% csrf_token %}
-            {{ form }}
-        
-            <!--{#{% csrf_token %}
-            {% for hidden in form.hidden_fields %} {#displays form fields maked as hidden#}
-                {#{{ hidden }}
-            {% endfor %}
-
-            {% for field in form.visible_fields %}
-                {{ field.error }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}#}#}-->
-            <!--<input type="submit" name="submit" value="Create Category" /> -->
+            {{ form|as_bootstrap }}        
             <button class="btn btn-primary" type="submit" value="Submit">Create Category</button>           
         </form>
     </div>
