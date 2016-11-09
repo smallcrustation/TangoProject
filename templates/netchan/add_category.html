@@ -1,6 +1,5 @@
 ﻿{% extends 'netchan/base.html' %}
 {% load staticfiles %}
-{% load bootstrap_toolkit %}
 
 {% block title_block %}
     A+DD Category
@@ -15,7 +14,8 @@
     <div>
         <form id="category_form" method="post" action="{% url 'add_category' %}"> {# action= sends to the URL then view POST#}
             {% csrf_token %}
-            {{ form|as_bootstrap }}        
+             
+            {{ form.as_p}}
             <button class="btn btn-primary" type="submit" value="Submit">Create Category</button>           
         </form>
     </div>

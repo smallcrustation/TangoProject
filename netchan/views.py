@@ -8,7 +8,7 @@ from datetime import datetime
 from netchan.models import Category, Page
 from .forms import CategoryForm, PageForm, UserProfileForm, UserForm
 
-# Helper functions #
+## Helper functions ##
 def get_server_side_cookie(request, cookie, default_val=None):
     # try's to get a cookie fom the server if it does not exist returns none instead of the value
     val = request.session.get(cookie)
@@ -34,7 +34,7 @@ def visitor_cookie_handler(request):
     # update/set the visits cookie
     request.session['visits'] = visits # set 'visits' cookie to visits value
 
-# Create your views here #
+## Create your views here ##
 def index(request):
     # Query database for a *list* of ALL categories currently stored, Order categories by num likes in
     # descending order.Retrieve the top 5 only (-) or all if less than 5.
