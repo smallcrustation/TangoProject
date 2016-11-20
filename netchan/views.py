@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,7 @@ from datetime import datetime
 
 from netchan.models import Category, Page
 from .forms import CategoryForm, PageForm, UserProfileForm, UserForm
+from netchan.bing_search import run_query
 
 ## Helper functions ##
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -18,9 +19,10 @@ def get_server_side_cookie(request, cookie, default_val=None):
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
+    can_add_view = False
     
     last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
-    print('last vis {}'.format(last_visit_cookie))
+    # ('last vis {}'.format(last_visit_cookie))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S') 
    
     # check if it's been more than 1 day since last visit
@@ -68,11 +70,14 @@ def show_category(request, category_name_slug): # cat_n_slug passed in through ?
         category = Category.objects.get(slug=category_name_slug)
 
         # filter associated pages by the foreign key category, returns a list empty or otherwise
-        pages = Page.objects.filter(category=category)
+        pages = Page.objects.filter(category=category)       
 
         # adds pages to the context_dict
         context_dict['pages'] = pages
         context_dict['category'] = category # used in the template for {% if exists %}
+
+        category.views = category.views + 1
+        category.save()
 
     except Category.DoesNotExist:
         # if we didn't find the category slug do below (which is nothing)
@@ -80,7 +85,48 @@ def show_category(request, category_name_slug): # cat_n_slug passed in through ?
         context_dict['category'] = None
         context_dict['pages'] = None
 
+    # search functionality
+    result_list = []
+    query = ''
+        
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+    context_dict['result_list'] = result_list
+    context_dict['query'] = query
+
     return render(request, 'netchan/category.html', context_dict)
+
+'''def search(request):
+    result_list = []
+    query = ''
+        
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+
+    return render(request, 'netchan/search.html', {'result_list': result_list, 'query': query})'''
+
+def track_url(request):
+    page_id = None
+    if request.method == 'GET':
+        if 'page_id' in request.GET: # 'page_id' in the string info provided by request.txt?
+            page_id = request.GET['page_id']
+        if page_id:
+            try:
+                page = Page.objects.get(id=page_id)
+                print(page.views)
+                page.views = page.views + 1
+                print(page.views)
+                page.save()
+                return redirect(page.url)
+            except:
+                return HttpResponse("Page id {0} not found".format(page_id))
+
+    print("No page_id in string")
+    return redirect(reverse('index'))
 
 @login_required
 def add_category(request):
