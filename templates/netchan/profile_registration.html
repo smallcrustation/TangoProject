@@ -1,0 +1,23 @@
+﻿{% extends 'netchan/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Create Profile
+{% endblock %}
+
+{% block body_block %}
+{% if user.is_authenticated %}
+<div>
+    <h1>Registration</h1>
+    <form id="" method="post" action="." enctype="multipart/form-data"> <!--{#enctype allows you to upload image#}-->
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Submit" />
+    </form>
+</div>
+{% else %}
+<div>
+    <p>Please create an account first.</p>
+</div>
+{% endif %}
+{% endblock %}

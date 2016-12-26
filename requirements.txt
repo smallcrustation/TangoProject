@@ -1,6 +1,9 @@
-django >=1.9, <2
-django-bootstrap-toolkit
-django-registration-redux
-Pillow
+Django==1.10.3 <2
+django-bootstrap-toolkit==2.15.0
+django-registration-redux==1.4
+Pillow==3.4.2
 setuptools
-requests
+requests==2.12.1
+coverage==4.2
+django-debug-toolbar==1.6
+sqlparse==0.2.2

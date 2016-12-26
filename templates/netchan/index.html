@@ -1,5 +1,5 @@
 ﻿{% extends 'netchan/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
     Home
@@ -24,7 +24,8 @@
             {% for category in categories %}
                 <li class="">
                     <a href="{% url 'show_category' category.slug %}" class="list-group-item list-group-item-action">
-                        {{ category.name }}
+                        {{ category.name }} 
+                        <span class="tag tag-pill tag-primary">{{ category.views }}</span>
                     </a>
                 </li>
             {% endfor %}
@@ -41,7 +42,7 @@
                 {% for page in pages %}
                 <li class="">
                     <a href="{{ page.url }}" class="list-group-item list-group-item-action">
-                    {{ page.title }}
+                    {{ page.title }} <span class="tag tag-pill tag-primary">{{page.views }}</span>
                     </a>
                 </li>
                 {% endfor %}

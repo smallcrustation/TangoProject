@@ -1,5 +1,5 @@
 ﻿{% extends 'netchan/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
     Abouty
@@ -15,10 +15,13 @@
             <p>netchan has been put together by Lars Olrich</p>
             <p>You have visited this site <strong>{{ visits }}</strong> times</p>
             <img src="{{ MEDIA_URL }}cat.jpg" alt="fluffy cat png" />
-        </div>
+        </div>       
+        <button class="btn btn-primary" onclick="alert('Javasript button click')">Javascript</button>
+        <button class="btn btn-primary" id="jquery-button">JQuery</button>
+        <p id="color-test">This is Jquery Color test</p>
+        <hr />
         <div>
             <img src="{% static 'images/synth-pop.jpg' %}" />
         </div>
     </body>
-    </html>
 {% endblock %}

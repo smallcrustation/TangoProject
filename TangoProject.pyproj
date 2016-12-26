@@ -53,6 +53,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="netchan\views.py" />
+    <Compile Include="netchan\views_ajax.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="netchan\__init__.py" />
     <Compile Include="populate_netchan.py">
       <SubType>Code</SubType>
@@ -65,17 +68,24 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="bing.key" />
+    <Content Include="favicon.ico" />
     <Content Include="media\cat.jpg" />
+    <Content Include="netchan\migrations\__pycache__\0001_initial.cpython-35.pyc" />
+    <Content Include="netchan\migrations\__pycache__\__init__.cpython-35.pyc" />
     <Content Include="static\CSS\base2.css" />
     <Content Include="static\CSS\base1.css" />
     <Content Include="static\CSS\custom.css" />
     <Content Include="static\CSS\signin.css" />
-    <Content Include="static\images\favicon.jpg" />
+    <Content Include="static\images\favicon.ico" />
     <Content Include="static\images\synth-pop.jpg" />
+    <Content Include="static\js\ajax.js" />
+    <Content Include="static\js\jquery.min.js" />
+    <Content Include="static\js\netchan-jquery.js" />
+    <Content Include="static\js\netchanajax.js" />
     <Content Include="templates\netchan\add_category.html" />
     <Content Include="templates\netchan\base.html" />
-    <Content Include="templates\netchan\base_bootstrap.html" />
     <Content Include="templates\netchan\category.html" />
+    <Content Include="templates\netchan\category_list_page.html" />
     <Content Include="templates\netchan\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="static\images\yatsuba-404.jpg">
@@ -86,29 +96,36 @@
     <Content Include="templates\netchan\category_list.html" />
     <Content Include="templates\netchan\Decommissioned\login.html" />
     <Content Include="templates\netchan\Decommissioned\register.html" />
+    <Content Include="templates\netchan\profile_registration.html" />
     <Content Include="templates\netchan\restricted.html" />
     <Content Include="templates\netchan\Decommissioned\search.html" />
+    <Content Include="templates\netchan\profile.html" />
+    <Content Include="templates\netchan\profiles_list.html" />
+    <Content Include="templates\netchan\page_list.html" />
     <Content Include="templates\registration\password_change_done.html" />
     <Content Include="templates\registration\password_change_form.html" />
     <Content Include="templates\registration\logout.html" />
-    <Content Include="templates\registration\registration_complete.html" />
+    <Content Include="templates\registration\Decomissioned\DECregistration_complete.html" />
     <Content Include="templates\registration\registration_form.html" />
     <Content Include="templates\registration\login.html" />
     <Content Include="WebPage1.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="netchan\" />
-    <Folder Include="netchan\migrations\" />
     <Folder Include="media\" />
+    <Folder Include="netchan\migrations\" />
+    <Folder Include="netchan\migrations\__pycache__\" />
     <Folder Include="netchan\templatetags\" />
     <Folder Include="static\" />
     <Folder Include="static\images\" />
     <Folder Include="static\CSS\" />
+    <Folder Include="static\js\" />
     <Folder Include="templates\" />
     <Folder Include="TangoProject\" />
     <Folder Include="templates\netchan\" />
     <Folder Include="templates\netchan\Decommissioned\" />
     <Folder Include="templates\registration\" />
+    <Folder Include="templates\registration\Decomissioned\" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="venv\">

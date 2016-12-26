@@ -1,0 +1,22 @@
+﻿{% extends 'netchan/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Profiles
+{% endblock %}
+
+{% block body_block %}
+<h1>Profiles</h1>
+<hr />
+<div class="">
+    <div class="">
+    <ul>
+        {% for user in user_list %}
+            <li><a href="{% url 'profile' user.user.username %}"><img src="{{ MEDIA_URL }}{{ user.picture }}" width="200" height="150" /></a></li>
+            <li ><a href="{% url 'profile' user.user.username %}">{{ user.user.username }}</a></li>
+            <li><br /></li>
+        {% endfor %}
+    </ul>
+    </div>    
+</div>
+{% endblock %}

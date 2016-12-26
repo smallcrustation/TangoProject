@@ -1,4 +1,8 @@
-﻿<ul>
+﻿{% extends 'netchan/base.html' %}
+{% load static %}
+
+{% block body_block %}
+<ul>
     {% if categories %}
         {% for c in categories %}
             {% if c == current_category %}
@@ -7,7 +11,7 @@
                 </strong></li>
             {% else %}
                 <li>
-                    <a href="{% url 'show_category' c.slug %}">{{ c.name }}</a>
+                    <a class="cat-hover-button chv-green"href="{% url 'show_category' c.slug %}">{{ c.name }}</a>
                </li>
             {% endif %}
         {% endfor %}
@@ -15,3 +19,4 @@
         <li><strong>None</strong></li>
     {% endif %}
 </ul>
+{% endblock %}

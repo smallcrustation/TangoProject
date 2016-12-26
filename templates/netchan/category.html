@@ -1,5 +1,5 @@
 ﻿{% extends 'netchan/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block title_block %}
     {{ category.name }}
@@ -9,10 +9,19 @@
 
     {% if category %}
         <h1>{{ category.name }}</h1>
-        <p>Cat. views: {{ category.views }}</p>
+  
+        <div>
+            Likes: <strong id="like_count">{{ category.likes }}</strong>
+            {% if user.is_authenticated %}
+            {% if not liked %}        
+                <button class="btn btn-primary btn-sm" id="likes" data-catid="{{ category.id }}" type="button">Like</button>
+            {% endif %}
+            {% endif %}
+            <p>Views: <strong>{{ category.views }}</strong></p>
+        </div>
 
         {% if pages %}
-            <ul>
+            <ul id="data-cat-list">
             {% for page in pages %}
                 <li><a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a> / Views: {{ page.views }}</li>
             {% endfor %}
@@ -27,8 +36,10 @@
         <h5>Would you like to <a href="{% url 'add_category' %}">add a new category</a>?</h5>
     {% endif %}
 <hr />
+
+{% if user.is_authenticated %}
 <div>
-    <h4>Search with netchan</h4>
+    <h4>Search then "add" a page by clicking "add"!!</h4>
     <form class="form-inline" id="user_form" method="post" action="{% url 'show_category' category.slug %}">
         {% csrf_token %}
         <div class="form-group">
@@ -49,7 +60,10 @@
             {% for result in result_list %}
                 <div class="list-group-item">
                     <h4 class="list-group-item-heading">
-                        <a href="{{ result.link }}">{{ result.title }}</a>
+                        <a href="{{ result.link }}" id="">{{ result.title }}</a>
+                        <button id="auto-add" class="btn-sm btn-primary" cat-id="{{ category.id }}" page-title="{{ result.title }}" page-url="{{ result.link}}">
+                            Add
+                        </button>
                     </h4>
                     <p class="list-group-item-text">{{ result.summary }}</p>
                 </div>
@@ -58,6 +72,7 @@
         {% endif %}
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 

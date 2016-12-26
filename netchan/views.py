@@ -3,10 +3,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from datetime import datetime
+from django.views import View
+from django.utils.decorators import method_decorator
 
-from netchan.models import Category, Page
+from netchan.models import Category, Page, UserProfile, Like
 from .forms import CategoryForm, PageForm, UserProfileForm, UserForm
+from registration.backends.simple.views import RegistrationView
 from netchan.bing_search import run_query
 
 ## Helper functions ##
@@ -37,6 +41,7 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits # set 'visits' cookie to visits value
 
 ## Create your views here ##
+'''
 def index(request):
     # Query database for a *list* of ALL categories currently stored, Order categories by num likes in
     # descending order.Retrieve the top 5 only (-) or all if less than 5.
@@ -54,20 +59,62 @@ def index(request):
     # Handle cookie tracker, set response variable so you can change it's request cookies accordingly
     response = render(request, 'netchan/index.html', context=context_dict) # get response object so we can pass into 
 
-    return response # call response
+    return response # call response'''
+class index(View):
+    # Query database for a *list* of ALL categories currently stored, Order categories by num likes in
+    # descending order.Retrieve the top 5 only (-) or all if less than 5.
+    category_list = Category.objects.order_by('-likes')[:5]
+    page_list = Page.objects.order_by('-views')[:5]
+  
+    # Place the list in our context_dict dictionary that will be passed to the template engine.
+    context_dict = {'categories': category_list, 'pages': page_list}
+    def get(self, request):
+        # ***server side cookie no cookie other than sessionid cookie will show in browser***
+        visitor_cookie_handler(request)
+        self.context_dict['visits'] = request.session['visits']
+        # Handle cookie tracker, set response variable so you can change it's request cookies accordingly
+        response = render(request, 'netchan/index.html', context=self.context_dict) # get response object so we can pass into 
+        return response
 
+'''
 def about(request):
     context_dict = {}
     context_dict['visits'] = request.session['visits']
     return render(request, 'netchan/about.html', context_dict) # no additional data to give to the template, passan empty dictionary, {}
+'''
+class about(View):
+    context_dict = {}
+    template_name = 'netchan/about.html'
+    def get(self, request):
+        self.context_dict['visits'] = request.session['visits']
+        return render(request, self.template_name, self.context_dict)
+
+def show_cats(request):
+    category_list = Category.objects.order_by('name')
+    return render(request, 'netchan/category_list_page.html', {'categories':category_list})
 
 def show_category(request, category_name_slug): # cat_n_slug passed in through ?P urls, which get it from index <a>
     # context dict to pass into trmplate render
-    context_dict = {}
+    context_dict = {}           
 
     try:
         # try and get the category by the name slug, returns DoesNotExist exception if not ther
         category = Category.objects.get(slug=category_name_slug)
+
+        # checks if user has already liked a cat could make a func for most of this cause i use most of it twice
+        if request.user.is_authenticated:
+            user = User.objects.get(username=request.user)
+            user_profile = UserProfile.objects.get_or_create(user=user)[0]
+            form = UserProfileForm({'website': user_profile.website, 'picture': user_profile.picture})
+            liked_cats_query = Like.objects.filter(user=user_profile)
+            liked_cats = []
+            for query in liked_cats_query:
+                liked_cats.append(query.category.slug)
+            if category.slug in liked_cats:
+                liked = True
+            else:
+                liked = False
+            context_dict['liked'] = liked
 
         # filter associated pages by the foreign key category, returns a list empty or otherwise
         pages = Page.objects.filter(category=category)       
@@ -128,8 +175,11 @@ def track_url(request):
     print("No page_id in string")
     return redirect(reverse('index'))
 
-@login_required
-def add_category(request):
+class MyRegistrationView(RegistrationView):
+    success_url = 'register_profile'
+
+# @login_required
+'''def add_category(request):
     form = CategoryForm
 
     if request.method == 'POST':
@@ -145,7 +195,28 @@ def add_category(request):
             print(form.errors) # print to console
 
     # returns the form in all cases if erros shows them
-    return render(request, 'netchan/add_category.html', {'form': form})
+    return render(request, 'netchan/add_category.html', {'form': form})'''
+@method_decorator(login_required, name='dispatch') # method decorator imported
+class add_category(View):
+    form = CategoryForm
+    template_name = 'netchan/add_category.html'
+
+    def get(self, request):
+         # returns the form in all cases if erros shows them
+        return render(request, self.template_name, {'form': self.form})
+
+    def post(self, request):
+        self.form = CategoryForm(request.POST)
+        # check if the form is valid
+        if self.form.is_valid():
+            self.form.save(commit=True)
+            # category is saved, could give confirmation msg 
+            # redirect to index page
+            return HttpResponseRedirect('netchan/index.html')
+        else: # error detected
+            errors = self.form.errors  # print to console
+            return render(request, self.template_name, {'errors': errors, 'form': self.form})
+
 
 @login_required
 def add_page(request, category_name_slug):
@@ -174,10 +245,81 @@ def add_page(request, category_name_slug):
     context_dict = {'form': form, 'category': category}
     return render(request, 'netchan/add_page.html', context_dict)
 
+
+@login_required
+def register_profile(request):
+    form = UserProfileForm
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES) # FILES pulls files in the post request
+
+        if form.is_valid():
+            user_profile = form.save(commit=False) # set to false so we can get the user_profile.user
+            user_profile.user = request.user       # of currently logged in user from *request*.user
+            form.save(commit=True)
+            return redirect('index')
+        else:
+            print(form.errors)
+
+    context_dict = {'form':form}
+    return render(request, 'netchan/profile_registration.html', context_dict)
+
 @login_required # LOGIN_URL='' in settings.py for where you get redirected to if not logd in
 def restricted(request):
     # print('yolo') # test
-    return render(request, 'netchan/restricted.html', {}) 
+    return render(request, 'netchan/restricted.html', {})
+
+@login_required
+def profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return redirect('index')
+
+    user_profile = UserProfile.objects.get_or_create(user=user)[0]
+    form = UserProfileForm({'website': user_profile.website, 'picture': user_profile.picture})
+    liked_cats = Like.objects.filter(user=user_profile)     
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('profile', user.username)
+        else:
+            print(form.errors)
+
+    context_dict = {'userprofile': user_profile, 'selecteduser': user, 'form': form, 'liked_cats': liked_cats,}
+    return render(request, 'netchan/profile.html', context_dict)
+
+@login_required
+def profile_list(request):
+    user_list = UserProfile.objects.all()
+    return render(request, 'netchan/profiles_list.html', {'user_list':user_list})
+
+'''
+@login_required
+def like_category(request):
+    cat_id = None
+    user = User.objects.get(username=request.user)
+    user_profile = UserProfile.objects.get(user=user)
+
+    if request.method == "GET":
+        cat_id = request.GET['category_id']
+        likes = 0
+        if cat_id:
+            cat = Category.objects.get(id=int(cat_id))
+            if cat:
+                user_liked = Like(user=user_profile, category=cat)
+                likes = cat.likes + 1
+                cat.likes = likes
+                cat.save()
+                user_liked.save()
+                
+    return HttpResponse(likes)
+    '''
+
+
+     
 
 
 

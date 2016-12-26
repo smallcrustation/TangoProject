@@ -1,0 +1,10 @@
+﻿{% if pages %}
+    <ul id="data-cat-list">
+    {% for page in pages %}
+        <li><a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a> / Views: {{ page.views }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'add_page' category.slug %}">add page</a><br />
+    {% else %}
+        <strong>No Pages her drp</strong>
+{% endif %}

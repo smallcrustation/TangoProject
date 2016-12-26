@@ -1,6 +1,7 @@
 import requests, json
 # Add your Microsoft Account Key to a file called bing.key
 
+# allows you to run a search in cmd prompt
 def main():
     query = input('Please enter your search: ')
     results = run_query(query)
@@ -37,30 +38,30 @@ def run_query(search_terms):
     if not bing_api_key:
         raise KeyError('Bing Key not found')
 
-    # set root url to api
+    # set root url to api (bing cog search docs)
     root_url = 'https://api.cognitive.microsoft.com/bing/v5.0/search'
-    # set search query
+    # set search query (keys are predetermined by bing search api)
     params = {  'q': search_terms,
                 'count': '10',
                 'offset': '0',
                 'mkt': 'en-us',}
 
-    # set bing api key in header
+    # set bing api key in header (headers will be passed headers to api for our key)
     headers = {'Ocp-Apim-Subscription-Key': bing_api_key}
     
     try:
-        # make GET request
+        # make GET request (root url looks for these arguments)
         response = requests.get(root_url, params=params, headers=headers)
     
         # pull the json out of response and return it as a python dictionary with json.loads and r.text    
-        dict_response = json.loads(response.text)
+        dict_response = json.loads(response.text) # .texts pulls all text information out of response
 
         # list that will carry the info from dict_response we want
         results = []
 
         # loop through dict_response pull out the information we want, place it in results list as dicts
-        for result in dict_response['webPages']['value']:
-            results.append({'title': result['name'],
+        for result in dict_response['webPages']['value']: # inside the dict_response return info for ['webPages']['value']
+            results.append({'title': result['name'], # inside the 2 deep key pull ['name'], ['url'] etc...
                             'link': result['url'],
                             'summary': result['snippet']})
     except:

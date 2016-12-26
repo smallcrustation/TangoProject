@@ -6,12 +6,20 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    likes = models.IntegerField(default=0)
 
-    def save(self, *args, **kwargs): # slug adds - for whitespace
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs): 
+        if not self.name: # if no name given will still check slug and set if needed
+            if self.slug != slugify(self.slug):
+                self.slug = slugify(self.slug)
+        else:
+            self.slug = slugify(self.name) # slugify adds - for whitespace
+
+        if self.views < 0:
+            self.views = 0
+        
+        super(Category, self).save(*args, **kwargs) # ?overrides save?
 
     class Meta: # shows plural name on forms etc. if more than 1
         verbose_name_plural = 'categories'
@@ -24,6 +32,7 @@ class Page(models.Model):
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
+    created_date = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -38,3 +47,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Like(models.Model):
+   user = models.ForeignKey(UserProfile)
+   category = models.ForeignKey(Category)
+
+   def __str__(self):
+       return self.category.name
