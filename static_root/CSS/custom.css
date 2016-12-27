@@ -1,0 +1,62 @@
+﻿ul
+{
+    list-style-type: none;
+}
+
+.bg-navbar{
+    /*background-color: purple;*/
+    background: purple; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #7B4397, #DC232E); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #7B4397, #DC232E); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #7B4397, #DC232E); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #7B4397 50%, #DC232E); /* Standard syntax */
+}
+
+.bg-sidebar{
+    background-color: white;
+}
+
+.cat-hover-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.chv-green{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+.chv-green:hover{
+    background-color: #4CAF50;
+    color: white;
+}
+
+.chv-blue{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+.chv-blue:hover{
+    background-color: #008CBA;
+    color: white;
+}
+
+.chv-red{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+.chv-red:hover{
+    background-color: #f44336;
+    color: white;
+}
