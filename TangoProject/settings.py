@@ -17,7 +17,7 @@ import posixpath
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates') ### base_dir finds the sys dir for any1, join them
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 ### Quick-start development settings - unsuitable for production
@@ -132,7 +132,7 @@ INTERNAL_IPS = ['127.0.0.1']
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR,] ### STATICFILES_DIRS is a specific list name
+STATICFILES_DIRS = [STATIC_DIR, STATIC_ROOT,] ### STATICFILES_DIRS is a specific list name
 
 ### Media files (uploads)
 MEDIA_ROOT = MEDIA_DIR
