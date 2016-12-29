@@ -131,7 +131,7 @@ INTERNAL_IPS = ['127.0.0.1']
 ### Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static_root/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,] ### STATICFILES_DIRS is a specific list name
 
 ### Media files (uploads)
