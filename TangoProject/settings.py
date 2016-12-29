@@ -29,7 +29,7 @@ SECRET_KEY = 'da787846-a054-4c56-8561-d3da7a591b32'
 ### SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['smallcrustation.pythonanywhere.com']
+ALLOWED_HOSTS = ['smallcrustation.pythonanywhere.com', '127.0.0.1']
 
 
 ### Application definition
@@ -131,7 +131,7 @@ INTERNAL_IPS = ['127.0.0.1']
 ### Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static_root/'
 STATICFILES_DIRS = [STATIC_DIR,] ### STATICFILES_DIRS is a specific list name
 
 ### Media files (uploads)
