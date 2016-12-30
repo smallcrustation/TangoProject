@@ -41,7 +41,7 @@
             <ul class="list-group">
                 {% for page in pages %}
                 <li class="">
-                    <a href="{{ page.url }}" class="list-group-item list-group-item-action">
+                    <a href="{% url 'goto' %}?page_id={{page.id}}" class="list-group-item list-group-item-action">
                     {{ page.title }} <span class="tag tag-pill tag-primary">{{page.views }}</span>
                     </a>
                 </li>

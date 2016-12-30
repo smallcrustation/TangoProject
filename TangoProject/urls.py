@@ -12,7 +12,8 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         url(r'^admin/', include(admin.site.urls)),
-        url(r'^$', views.index.as_view(), name='index'),
+        #url(r'^$', views.index.as_view(), name='index'),
+        url(r'^$', views.index, name='index'),
         url(r'^netchan/', include('netchan.urls')),
         url(r'^accounts/register/', views.MyRegistrationView.as_view(), name='registration_register'), # turns out urls run in order so custom ones first
         url(r'^accounts/', include('registration.backends.simple.urls')), # sends us to the built in in redux
@@ -22,7 +23,8 @@ if settings.DEBUG:
 else:
      urlpatterns = [
         url(r'^admin/', include(admin.site.urls)),
-        url(r'^$', views.index.as_view(), name='index'),
+        #url(r'^$', views.index.as_view(), name='index'),
+        url(r'^$', views.index, name='index'),
         url(r'^netchan/', include('netchan.urls')),
         url(r'^accounts/register/', views.MyRegistrationView.as_view(), name='registration_register'), # turns out urls run in order so custom ones first
         url(r'^accounts/', include('registration.backends.simple.urls')), # sends us to the built in in redux

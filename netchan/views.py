@@ -41,7 +41,6 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits # set 'visits' cookie to visits value
 
 ## Create your views here ##
-'''
 def index(request):
     # Query database for a *list* of ALL categories currently stored, Order categories by num likes in
     # descending order.Retrieve the top 5 only (-) or all if less than 5.
@@ -59,7 +58,8 @@ def index(request):
     # Handle cookie tracker, set response variable so you can change it's request cookies accordingly
     response = render(request, 'netchan/index.html', context=context_dict) # get response object so we can pass into 
 
-    return response # call response'''
+    return response # call response
+'''
 class index(View):
     # Query database for a *list* of ALL categories currently stored, Order categories by num likes in
     # descending order.Retrieve the top 5 only (-) or all if less than 5.
@@ -76,6 +76,7 @@ class index(View):
         # Handle cookie tracker, set response variable so you can change it's request cookies accordingly
         response = render(request, 'netchan/index.html', context=self.context_dict) # get response object so we can pass into 
         return response
+'''
 
 '''
 def about(request):

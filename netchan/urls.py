@@ -4,7 +4,8 @@ from netchan import views, views_ajax
 
 
 urlpatterns = [
-        url(r'^$', views.index.as_view(), name='index'),
+        #url(r'^$', views.index.as_view(), name='index'),
+        url(r'^$', views.index, name='index'),
         url(r'^about/', views.about.as_view(), name='about'),
         url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
         url(r'^add_category/$', views.add_category.as_view(), name='add_category'),
