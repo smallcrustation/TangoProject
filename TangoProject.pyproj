@@ -72,10 +72,10 @@
     <Content Include="media\cat.jpg" />
     <Content Include="netchan\migrations\__pycache__\0001_initial.cpython-35.pyc" />
     <Content Include="netchan\migrations\__pycache__\__init__.cpython-35.pyc" />
-    <Content Include="static\CSS\base2.css" />
-    <Content Include="static\CSS\base1.css" />
-    <Content Include="static\CSS\custom.css" />
-    <Content Include="static\CSS\signin.css" />
+    <Content Include="static\css\base2.css" />
+    <Content Include="static\css\base1.css" />
+    <Content Include="static\css\custom.css" />
+    <Content Include="static\css\signin.css" />
     <Content Include="static\images\favicon.ico" />
     <Content Include="static\images\synth-pop.jpg" />
     <Content Include="static\js\ajax.js" />
@@ -118,7 +118,7 @@
     <Folder Include="netchan\templatetags\" />
     <Folder Include="static\" />
     <Folder Include="static\images\" />
-    <Folder Include="static\CSS\" />
+    <Folder Include="static\css\" />
     <Folder Include="static\js\" />
     <Folder Include="templates\" />
     <Folder Include="TangoProject\" />

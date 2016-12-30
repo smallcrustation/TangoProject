@@ -71,6 +71,7 @@ class index(View):
     def get(self, request):
         # ***server side cookie no cookie other than sessionid cookie will show in browser***
         visitor_cookie_handler(request)
+        self.context_dict = self.context_dict
         self.context_dict['visits'] = request.session['visits']
         # Handle cookie tracker, set response variable so you can change it's request cookies accordingly
         response = render(request, 'netchan/index.html', context=self.context_dict) # get response object so we can pass into 
@@ -212,7 +213,7 @@ class add_category(View):
             self.form.save(commit=True)
             # category is saved, could give confirmation msg 
             # redirect to index page
-            return HttpResponseRedirect('netchan/index.html')
+            return redirect('index')
         else: # error detected
             errors = self.form.errors  # print to console
             return render(request, self.template_name, {'errors': errors, 'form': self.form})
