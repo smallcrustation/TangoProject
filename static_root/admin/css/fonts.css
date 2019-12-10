@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Roboto';
+    font-family: 'Roboto', 'monospace';
     src: url('../fonts/Roboto-Bold-webfont.woff');
     font-weight: 700;
     font-style: normal;
