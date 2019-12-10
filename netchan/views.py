@@ -390,7 +390,7 @@ def like_category(request):
 #                login(request, user) # 'login' is a django function
 #                return HttpResponseRedirect(reverse('index'))
 #            else:
-#                return HttpResponse("Your netchan Account is fucked(disabled).")
+#                return HttpResponse("Your netchan Account is (disabled).")
 
 #        else:
 #            print('Invalid login details: {0}, {1}'.format(username, password))
