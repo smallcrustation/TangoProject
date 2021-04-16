@@ -5,5 +5,5 @@ Pillow==3.4.2
 setuptools
 requests==2.12.1
 coverage==4.2
-django-debug-toolbar==1.6
+django-debug-toolbar==1.11.1
 sqlparse==0.2.2
